@@ -34,7 +34,9 @@ const App: React.FC = () => {
         const diff_in_offset = current_intl_tz - local_tz;
         let local_time = new Date(currentDate.getTime() + (diff_in_offset * 60 * 1000))
         console.log(local_time)
-        setLocalLocaTtime(local_time.toString())
+        let localtime_arr = local_time.toString().split(" ").splice(0, 5).join(" ")
+        console.log(localtime_arr)
+        setLocalLocaTtime(localtime_arr)
         console.log(diff_in_offset)
       })
       .catch(error => console.error('Error', error));
@@ -43,14 +45,14 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <div className="screen">
-        {/* <input /> */}
+        <h1>Local Local Time ⏰</h1>
         <PlacesAutocomplete
           value={address}
           onChange={handleChange}
           onSelect={handleSelect}
         >
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) =>
-            <div>
+            <div className="container">
               <input
                 {...getInputProps({
                   placeholder: 'Search Places ...',
@@ -65,8 +67,8 @@ const App: React.FC = () => {
                     : 'suggestion-item';
                   // inline style for demonstration purpose
                   const style = suggestion.active
-                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                    ? { backgroundColor: '#ccc', cursor: 'pointer', padding: 10 }
+                    : { backgroundColor: '#fff', cursor: 'pointer', padding: 10 };
                   return (
                     <div
                       {...getSuggestionItemProps(suggestion, {
@@ -74,7 +76,7 @@ const App: React.FC = () => {
                         style,
                       })}
                     >
-                      <span>{suggestion.description}</span>
+                      <span>{suggestion.description.slice()}</span>
                     </div>
                   );
                 })}
@@ -83,7 +85,7 @@ const App: React.FC = () => {
             // console.log(suggestions)
           }
         </PlacesAutocomplete>
-        <p>{localLocalTime}</p>
+        <h2 className="locallocaltimestring">{localLocalTime}</h2>
       </div>
     </div>
   );
