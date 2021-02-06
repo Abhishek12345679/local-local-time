@@ -93,50 +93,50 @@ const App: React.FC = () => {
       backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat',
 
     }}>
-      <div className="screen">
-        <div style={{ height: 100, backgroundColor: "#fff" }}><h1 className="text">Local Local Time ⏰</h1></div>
-        <PlacesAutocomplete
-          value={address}
-          onChange={handleChange}
-          onSelect={handleSelect}
-        >
-          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) =>
-            <div className="container">
-              <input
-                {...getInputProps({
-                  placeholder: 'Search Places ...',
-                  className: 'location-search-input',
-                })}
-              />
-              <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
-                {suggestions.map(suggestion => {
-                  const className = suggestion.active
-                    ? 'suggestion-item--active'
-                    : 'suggestion-item';
-                  // inline style for demonstration purpose
-                  const style = suggestion.active
-                    ? { backgroundColor: '#ccc', cursor: 'pointer', padding: 10 }
-                    : { backgroundColor: '#fff', cursor: 'pointer', padding: 10 };
-                  return (
-                    <div
-                      {...getSuggestionItemProps(suggestion, {
-                        className,
-                        style,
-                      })}
-                    >
-                      <span>{suggestion.description.slice()}</span>
-                    </div>
-                  );
-                })}
-              </div>
+      <h1 className="text">Local Local Time ⏰</h1>
+      {/* <div className="screen"> */}
+      <PlacesAutocomplete
+        value={address}
+        onChange={handleChange}
+        onSelect={handleSelect}
+      >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) =>
+          <div className="container">
+            <input
+              {...getInputProps({
+                placeholder: 'Search Places ...',
+                className: 'location-search-input',
+              })}
+            />
+            <div className="autocomplete-dropdown-container">
+              {loading && <div>Loading...</div>}
+              {suggestions.map(suggestion => {
+                const className = suggestion.active
+                  ? 'suggestion-item--active'
+                  : 'suggestion-item';
+                // inline style for demonstration purpose
+                const style = suggestion.active
+                  ? { backgroundColor: '#ccc', cursor: 'pointer', padding: 10 }
+                  : { backgroundColor: '#fff', cursor: 'pointer', padding: 10 };
+                return (
+                  <div
+                    {...getSuggestionItemProps(suggestion, {
+                      className,
+                      style,
+                    })}
+                  >
+                    <span>{suggestion.description.slice()}</span>
+                  </div>
+                );
+              })}
             </div>
-            // console.log(suggestions)
-          }
-        </PlacesAutocomplete>
-        <h2 className="locallocaltimestring">{localLocalTime}</h2>
-        <h2 className="text">{hours}:{minutes}:{seconds}</h2>
-      </div>
+          </div>
+          // console.log(suggestions)
+        }
+      </PlacesAutocomplete>
+      <h2 className="locallocaltimestring">{localLocalTime}</h2>
+      <h2 className="text">{hours}:{minutes}:{seconds}</h2>
+      {/* </div> */}
     </div>
   );
 }

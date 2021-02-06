@@ -2,13 +2,14 @@
         justify-content: center;
         text-align: center;
         background-color: #fff;
-        display: flex;
+        /* display: block; */
         height: 100vh;
         background-size: cover;
         position: fixed;
         background-position: center;
         min-width: 100%;
         min-height: 100%;
+        margin: 0 auto
     }
     
     .screen {
@@ -17,19 +18,23 @@
         justify-content: center;
         text-align: center;
         /* background-color: #000; */
-        display: block;
+        /* display: block; */
     }
     
     .text {
-        outline-color: #fff;
-        outline-width: 10px;
+        /* outline-color: #fff;
+        outline-width: 10px; */
+        background-color: #fff;
+        /* display: inline-block; */
+        margin: 0 auto;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     }
     
     .container {
         /* width: 100%; */
         justify-content: center;
         text-align: center;
-        display: block;
+        /* display: block; */
         /* background: #000; */
     }
     
