@@ -18,9 +18,9 @@ const App: React.FC = () => {
 
 
   //time
-  const [hours, setHours] = useState(0)
-  const [minutes, setMinutes] = useState(0)
-  const [seconds, setSeconds] = useState(0)
+  const [hours, setHours] = useState("0")
+  const [minutes, setMinutes] = useState("0")
+  const [seconds, setSeconds] = useState("0")
 
   // const IST_LATITUDE = 
   const UTC_LONGITUDE = 0
@@ -47,39 +47,44 @@ const App: React.FC = () => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
-        // console.log('Success', latLng)
-        let currentDate = new Date();
-
-        let local_tz = ((UTC_LONGITUDE - latLng.lng) * TIME_PER_LONGITUDE)
-
-        const current_intl_tz = currentDate.getTimezoneOffset()
-        const diff_in_offset = current_intl_tz - local_tz;          // diff = current_tz_offset - (time zone of the selected place)
-
-        let local_time = new Date(currentDate.getTime() + (diff_in_offset * 60 * 1000))
-
         //start clock
-        currentTime(local_time)
-
-
-        let localtime_arr = local_time.toString().split(" ").splice(0, 5).join(" ")
-        setLocalLocaTtime(localtime_arr)
+        currentTime(latLng.lng)
       })
       .catch(error => console.error('Error', error));
   };
 
-  const currentTime = (time: Date) => {
-    const hour = time.getHours()
-    const minutes = time.getMinutes()
-    const seconds = time.getSeconds()
+  const updateTime = (k: number) => {
+    if (k < 10) {
+      return "0" + k;
+    }
+    else {
+      return k.toString();
+    }
+  }
+
+  const currentTime = (Longitude: number) => {
+    let currentDate = new Date();
+
+    let local_tz = ((UTC_LONGITUDE - Longitude) * TIME_PER_LONGITUDE)
+
+    const current_intl_tz = currentDate.getTimezoneOffset()
+    const diff_in_offset = current_intl_tz - local_tz;          // diff = current_tz_offset - (time zone of the selected place)
+
+    let local_time = new Date(currentDate.getTime() + (diff_in_offset * 60 * 1000))
+
+
+    const hour = updateTime(local_time.getHours())
+    const minutes = updateTime(local_time.getMinutes())
+    const seconds = updateTime(local_time.getSeconds())
 
     setHours(hour)
     setMinutes(minutes)
     setSeconds(seconds)
 
-    console.log(`${hour}:${minutes}:${seconds}`)
+    // console.log(`${hour}:${minutes}:${seconds}`)
 
     setTimeout(() => {
-      currentTime(time +)
+      currentTime(Longitude)
     }, 1000)
   }
 
@@ -89,7 +94,7 @@ const App: React.FC = () => {
 
     }}>
       <div className="screen">
-        <h1>Local Local Time ⏰</h1>
+        <div style={{ height: 100, backgroundColor: "#fff" }}><h1 className="text">Local Local Time ⏰</h1></div>
         <PlacesAutocomplete
           value={address}
           onChange={handleChange}
@@ -130,7 +135,7 @@ const App: React.FC = () => {
           }
         </PlacesAutocomplete>
         <h2 className="locallocaltimestring">{localLocalTime}</h2>
-        <h2 className="locallocaltimestring">{hours}:{minutes}:{seconds}</h2>
+        <h2 className="text">{hours}:{minutes}:{seconds}</h2>
       </div>
     </div>
   );
