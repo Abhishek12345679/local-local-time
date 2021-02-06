@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { TextField } from './components/TextField';
@@ -9,13 +9,35 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 
+
 const App: React.FC = () => {
 
   const [address, setAddress] = useState('')
   const [localLocalTime, setLocalLocaTtime] = useState('')
+  const [backgroundImage, setBackgroundImage] = useState('')
+
+
+  //time
+  const [hours, setHours] = useState(0)
+  const [minutes, setMinutes] = useState(0)
+  const [seconds, setSeconds] = useState(0)
+
   // const IST_LATITUDE = 
   const UTC_LONGITUDE = 0
   const TIME_PER_LONGITUDE = 4
+  const ACCESS_KEY = 'h7eF21T9CT7IP5joCADCvTOxpCL76CDsoDgtBwIkYKg'
+
+  useEffect(() => {
+
+    const getRandomBackgroundImage = async () => {
+      const response = await fetch(`https://api.unsplash.com/photos/random?client_id=${ACCESS_KEY}&Accept-Version=v1&content_filter=low`)
+      const resData = await response.json()
+      console.log(resData)
+      setBackgroundImage(resData.urls.full)
+    }
+    getRandomBackgroundImage()
+  },
+    [])
 
   const handleChange = (address: string) => {
     setAddress(address)
@@ -25,25 +47,47 @@ const App: React.FC = () => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
-        console.log('Success', latLng)
+        // console.log('Success', latLng)
         let currentDate = new Date();
+
         let local_tz = ((UTC_LONGITUDE - latLng.lng) * TIME_PER_LONGITUDE)
 
         const current_intl_tz = currentDate.getTimezoneOffset()
-        // diff = current_tz_offset - (time zone of the selected place)
-        const diff_in_offset = current_intl_tz - local_tz;
+        const diff_in_offset = current_intl_tz - local_tz;          // diff = current_tz_offset - (time zone of the selected place)
+
         let local_time = new Date(currentDate.getTime() + (diff_in_offset * 60 * 1000))
-        console.log(local_time)
+
+        //start clock
+        currentTime(local_time)
+
+
         let localtime_arr = local_time.toString().split(" ").splice(0, 5).join(" ")
-        console.log(localtime_arr)
         setLocalLocaTtime(localtime_arr)
-        console.log(diff_in_offset)
       })
       .catch(error => console.error('Error', error));
   };
 
+  const currentTime = (time: Date) => {
+    const hour = time.getHours()
+    const minutes = time.getMinutes()
+    const seconds = time.getSeconds()
+
+    setHours(hour)
+    setMinutes(minutes)
+    setSeconds(seconds)
+
+    console.log(`${hour}:${minutes}:${seconds}`)
+
+    setTimeout(() => {
+      currentTime(time +)
+    }, 1000)
+  }
+
   return (
-    <div className="App">
+    <div className="App" style={{
+      backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat',
+
+    }}>
       <div className="screen">
         <h1>Local Local Time ⏰</h1>
         <PlacesAutocomplete
@@ -86,6 +130,7 @@ const App: React.FC = () => {
           }
         </PlacesAutocomplete>
         <h2 className="locallocaltimestring">{localLocalTime}</h2>
+        <h2 className="locallocaltimestring">{hours}:{minutes}:{seconds}</h2>
       </div>
     </div>
   );
