@@ -68,6 +68,7 @@ const App: React.FC = () => {
   }
 
   const currentTime = (Longitude: number) => {
+
     let currentDate = new Date();
 
     let local_tz = ((UTC_LONGITUDE - Longitude) * TIME_PER_LONGITUDE)
@@ -145,7 +146,7 @@ const App: React.FC = () => {
         <h2 className="timer">{hours}:{minutes}:{seconds}</h2>
       </div>}
       <div className="footer">
-        <img src={photographer.profile_image} style={{ borderRadius: 0 }} />
+        <img src={photographer.profile_image} style={{ borderRadius: 20, marginRight: 10 }} />
         <a href={`https://unsplash.com/@${photographer.username}`} target="_blank" rel="noreferrer">{photographer.username}</a>
       </div>
     </div>
