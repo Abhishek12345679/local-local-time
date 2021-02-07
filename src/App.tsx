@@ -25,8 +25,8 @@ const App: React.FC = () => {
   const [hours, setHours] = useState("0")
   const [minutes, setMinutes] = useState("0")
   const [seconds, setSeconds] = useState("0")
+  let [timer, setTimer]: any = useState(null)
 
-  // const IST_LATITUDE = 
   const UTC_LONGITUDE = 0
   const TIME_PER_LONGITUDE = 4
   const ACCESS_KEY = 'h7eF21T9CT7IP5joCADCvTOxpCL76CDsoDgtBwIkYKg'
@@ -49,6 +49,12 @@ const App: React.FC = () => {
   };
 
   const handleSelect = (address: string) => {
+    if (timer !== null) {
+      console.log(timer)
+      clearTimeout(timer)
+      timer = null
+    }
+    console.log(timer)
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
@@ -91,9 +97,9 @@ const App: React.FC = () => {
 
     // console.log(`${hour}:${minutes}:${seconds}`)
 
-    setTimeout(() => {
+    setTimer(setTimeout(() => {
       currentTime(Longitude)
-    }, 1000)
+    }, 1000))
   }
 
   return (
