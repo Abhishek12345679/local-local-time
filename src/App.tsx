@@ -1,3 +1,6 @@
+//TODO: add geolocation
+//TODO: make site more responsible to 
+
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -5,7 +8,7 @@ import { TextField } from './components/TextField';
 
 import PlacesAutocomplete, {
   geocodeByAddress,
-  geocodeByPlaceId,
+  // geocodeByPlaceId,
   getLatLng,
 } from 'react-places-autocomplete';
 
@@ -13,8 +16,9 @@ import PlacesAutocomplete, {
 const App: React.FC = () => {
 
   const [address, setAddress] = useState('')
-  const [localLocalTime, setLocalLocaTtime] = useState('')
+  const [localLocalTime, setLocalLocalTime] = useState('')
   const [backgroundImage, setBackgroundImage] = useState('')
+  const [photographer, setPhotographer] = useState({ username: "", profile_image: "" })
 
 
   //time
@@ -34,6 +38,7 @@ const App: React.FC = () => {
       const resData = await response.json()
       console.log(resData)
       setBackgroundImage(resData.urls.full)
+      setPhotographer({ username: resData.user.username, profile_image: resData.user.profile_image.small })
     }
     getRandomBackgroundImage()
   },
@@ -72,6 +77,8 @@ const App: React.FC = () => {
 
     let local_time = new Date(currentDate.getTime() + (diff_in_offset * 60 * 1000))
 
+    setLocalLocalTime(local_time.toString().split(" ").slice(0, 4).join(" "))
+
 
     const hour = updateTime(local_time.getHours())
     const minutes = updateTime(local_time.getMinutes())
@@ -93,8 +100,7 @@ const App: React.FC = () => {
       backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat',
 
     }}>
-      <h1 className="text">Local Local Time ⏰</h1>
-      {/* <div className="screen"> */}
+      <h1 className="text">Local Local Time ⌚️</h1>
       <PlacesAutocomplete
         value={address}
         onChange={handleChange}
@@ -134,9 +140,14 @@ const App: React.FC = () => {
           // console.log(suggestions)
         }
       </PlacesAutocomplete>
-      <h2 className="locallocaltimestring">{localLocalTime}</h2>
-      <h2 className="text">{hours}:{minutes}:{seconds}</h2>
-      {/* </div> */}
+      {hours !== "0" && minutes !== "0" && seconds !== "0" && localLocalTime.length !== 0 && <div className='datetimecontainer'>
+        <h2 className="locallocaltimestring">{localLocalTime}</h2>
+        <h2 className="timer">{hours}:{minutes}:{seconds}</h2>
+      </div>}
+      <div className="footer">
+        <img src={photographer.profile_image} style={{ borderRadius: 0 }} />
+        <a href={`https://unsplash.com/@${photographer.username}`} target="_blank" rel="noreferrer">{photographer.username}</a>
+      </div>
     </div>
   );
 }

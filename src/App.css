@@ -12,22 +12,18 @@
         margin: 0 auto
     }
     
-    .screen {
-        /* flex: 1; */
-        width: 100%;
-        justify-content: center;
-        text-align: center;
-        /* background-color: #000; */
-        /* display: block; */
-    }
-    
     .text {
         /* outline-color: #fff;
         outline-width: 10px; */
-        background-color: #fff;
+        background-color: #242222;
         /* display: inline-block; */
         margin: 0 auto;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        font-family: 'Ramabhadra', sans-serif;
+        font-size: 50px;
+        color: #fff;
+        min-width: 100%;
+        min-height: 100px
     }
     
     .container {
@@ -48,16 +44,49 @@
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         border: none;
         border-radius: 5px;
-        text-align: center;
-        outline-color: #ccc;
+        text-align: left;
+        padding: 5px 10px 5px 5px;
+        font-family: 'Ramabhadra', sans-serif;
+        font-size: 16px;
+        color: #000;
+        /* font-weight: bold; */
     }
     
     .autocomplete-dropdown-container {
         width: 60%;
         justify-content: center;
-        text-align: center;
+        text-align: left;
         margin: 0 auto;
         /* background-color: red; */
     }
     
     .locallocaltimestring {}
+    
+    .datetimecontainer {
+        width: 60%;
+        height: 100px;
+        background-color: #fff;
+        /* margin-top: 10px; */
+        /* colo */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        border: none;
+        border-radius: 5px;
+        text-align: left;
+        /* padding: 5px 10px 5px 5px; */
+        font-family: 'Ramabhadra', sans-serif;
+        font-size: 16px;
+        color: #000;
+        margin: 0 auto;
+    }
+    
+    .footer {
+        position: fixed;
+        bottom: 0px;
+        /* text-align: center; */
+        /* align-items: center; */
+        background-color: #242222;
+        width: 100%;
+        color: #fff;
+        height: 50px;
+        /* justify-content: center; */
+    }
