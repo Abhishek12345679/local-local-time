@@ -50,11 +50,11 @@ const App: React.FC = () => {
 
   const handleSelect = (address: string) => {
     if (timer !== null) {
-      console.log(timer)
+      // console.log(timer)
       clearTimeout(timer)
       timer = null
     }
-    console.log(timer)
+    // console.log(timer)
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
