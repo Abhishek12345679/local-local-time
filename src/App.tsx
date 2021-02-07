@@ -25,11 +25,40 @@ const App: React.FC = () => {
   const [hours, setHours] = useState("0")
   const [minutes, setMinutes] = useState("0")
   const [seconds, setSeconds] = useState("0")
+
+  //current time
+
+  const [currentHours, setCurrentHours] = useState("0")
+  const [currentMinutes, setCurrentMinutes] = useState("0")
+  const [currentSeconds, setCurrentSeconds] = useState("0")
+
   let [timer, setTimer]: any = useState(null)
+  let [currentTimer, setCurrentTimer]: any = useState(null)
+
 
   const UTC_LONGITUDE = 0
   const TIME_PER_LONGITUDE = 4
   const ACCESS_KEY = 'h7eF21T9CT7IP5joCADCvTOxpCL76CDsoDgtBwIkYKg'
+
+  const currentLocationTimer = () => {
+    let currentDate = new Date();
+
+
+
+    const hour = updateTime(currentDate.getHours())
+    const minutes = updateTime(currentDate.getMinutes())
+    const seconds = updateTime(currentDate.getSeconds())
+
+    setCurrentHours(hour)
+    setCurrentMinutes(minutes)
+    setCurrentSeconds(seconds)
+
+    // console.log(`${hour}:${minutes}:${seconds}`)
+
+    setCurrentTimer(setTimeout(() => {
+      currentLocationTimer()
+    }, 1000))
+  }
 
   useEffect(() => {
 
@@ -41,7 +70,14 @@ const App: React.FC = () => {
       setPhotographer({ username: resData.user.username, profile_image: resData.user.profile_image.small })
     }
     getRandomBackgroundImage()
+    currentLocationTimer()
+
+    return () => {
+      clearTimeout(currentTimer);
+      currentTimer = null
+    }
   },
+
     [])
 
   const handleChange = (address: string) => {
@@ -151,6 +187,7 @@ const App: React.FC = () => {
         <h2 className="locallocaltimestring">{localLocalTime}</h2>
         <h2 className="timer">{hours}:{minutes}:{seconds}</h2>
       </div>}
+      <h2 className="timer">{currentHours}:{currentMinutes}:{currentSeconds}</h2>
       <div className="footer">
         <img src={photographer.profile_image} style={{ borderRadius: 20, marginRight: 10 }} />
         <a href={`https://unsplash.com/@${photographer.username}`} target="_blank" rel="noreferrer">{photographer.username}</a>
