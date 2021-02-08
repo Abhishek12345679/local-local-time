@@ -1,5 +1,9 @@
 //TODO: add geolocation
-//TODO: make site more responsible to 
+//TODO: make site more responsive on mobile
+//TODO: Web UI 
+//TODO: option to download background
+//TODO: option to choose 24/12 hr format
+//TODO: option to choose full or regular photo
 
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
@@ -8,7 +12,7 @@ import { TextField } from './components/TextField';
 
 import PlacesAutocomplete, {
   geocodeByAddress,
-  // geocodeByPlaceId,
+
   getLatLng,
 } from 'react-places-autocomplete';
 
@@ -21,6 +25,8 @@ const App: React.FC = () => {
   const [photographer, setPhotographer] = useState({ username: "", profile_image: "" })
 
 
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
+
   //time
   const [hours, setHours] = useState("0")
   const [minutes, setMinutes] = useState("0")
@@ -32,8 +38,8 @@ const App: React.FC = () => {
   const [currentMinutes, setCurrentMinutes] = useState("0")
   const [currentSeconds, setCurrentSeconds] = useState("0")
 
-  let [timer, setTimer]: any = useState(null)
-  let [currentTimer, setCurrentTimer]: any = useState(null)
+  let [timer, setTimer] = useState<any>(null)
+  let [currentTimer, setCurrentTimer] = useState<any>(null)
 
 
   const UTC_LONGITUDE = 0
@@ -66,18 +72,18 @@ const App: React.FC = () => {
       const response = await fetch(`https://api.unsplash.com/photos/random?client_id=${ACCESS_KEY}&Accept-Version=v1&content_filter=low`)
       const resData = await response.json()
       console.log(resData)
-      setBackgroundImage(resData.urls.full)
+      setBackgroundImage(resData.urls.regular)
       setPhotographer({ username: resData.user.username, profile_image: resData.user.profile_image.small })
+
     }
     getRandomBackgroundImage()
     currentLocationTimer()
-
+    setIsLoaded(true)
     return () => {
       clearTimeout(currentTimer);
       currentTimer = null
     }
   },
-
     [])
 
   const handleChange = (address: string) => {
@@ -136,6 +142,12 @@ const App: React.FC = () => {
     setTimer(setTimeout(() => {
       currentTime(Longitude)
     }, 1000))
+  }
+
+  if (!isLoaded) {
+    return (
+      <div>loading...</div>
+    )
   }
 
   return (
