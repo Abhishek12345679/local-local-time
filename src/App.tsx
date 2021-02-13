@@ -196,10 +196,14 @@ const App: React.FC = () => {
         }
       </PlacesAutocomplete>
       {hours !== "0" && minutes !== "0" && seconds !== "0" && localLocalTime.length !== 0 && <div className='datetimecontainer'>
+        <h3>local time</h3>
         <h2 className="locallocaltimestring">{localLocalTime}</h2>
         <h2 className="timer">{hours}:{minutes}:{seconds}</h2>
       </div>}
-      <h2 className="timer">{currentHours}:{currentMinutes}:{currentSeconds}</h2>
+      <div className="datetimecontainer">
+        <h3>current time</h3>
+        <h2>{currentHours}:{currentMinutes}:{currentSeconds}</h2>
+      </div>
       <div className="footer">
         <img src={photographer.profile_image} style={{ borderRadius: 20, marginRight: 10 }} />
         <a href={`https://unsplash.com/@${photographer.username}`} target="_blank" rel="noreferrer">{photographer.username}</a>
