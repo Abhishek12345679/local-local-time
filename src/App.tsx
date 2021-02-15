@@ -19,6 +19,7 @@ var moment = require('moment-timezone');
 const App: React.FC = () => {
 
   const [address, setAddress] = useState('')
+  const [destination, setDestination] = useState('')
   const [localLocalTime, setLocalLocalTime] = useState('')
   const [backgroundImage, setBackgroundImage] = useState('')
   const [photographer, setPhotographer] = useState({ username: "", profile_image: "" })
@@ -112,6 +113,7 @@ const App: React.FC = () => {
   };
 
   const handleSelect = (address: string) => {
+    setDestination(address)
     if (timer !== null) {
       // console.log(timer)
       clearTimeout(timer)
@@ -204,7 +206,7 @@ const App: React.FC = () => {
                   <div
                     {...getSuggestionItemProps(suggestion, {
                       className,
-                      style,
+                      style
                     })}
                   >
                     <span>{suggestion.description.slice()}</span>
@@ -218,16 +220,22 @@ const App: React.FC = () => {
       </PlacesAutocomplete>
       {hours !== "0" && minutes !== "0" && seconds !== "0" && localLocalTime.length !== 0 && <div className='datetimecontainer'>
         <h3>local time</h3>
-        <h2 className="locallocaltimestring">{localLocalTime}</h2>
+        <p className="locallocaltimestring">local local time @ {destination}</p>
         <h2 className="timer">{hours}:{minutes}:{seconds}</h2>
       </div>}
       <div className="datetimecontainer">
         {currentTZ && <h3>current time:{currentTZ['text']}</h3>}
-        <h2>{currentHours}:{currentMinutes}:{currentSeconds}</h2>
+        <h1>{currentHours}:{currentMinutes}:{currentSeconds}</h1>
       </div>
       <div className="footer">
         <img src={photographer.profile_image} style={{ borderRadius: 20, marginRight: 10 }} />
-        <a href={`https://unsplash.com/@${photographer.username}`} target="_blank" rel="noreferrer">{photographer.username}</a>
+        <a
+          href={`https://unsplash.com/@${photographer.username}`}
+          target="_blank"
+          rel="noreferrer"
+          style={{ textDecorationLine: 'none', color: '#ffffff' }}>
+          @{photographer.username}
+        </a>
       </div>
     </div>
   );
