@@ -3,19 +3,18 @@
 //TODO: Web UI 
 //TODO: option to download background
 //TODO: option to choose 24/12 hr format
-//TODO: option to choose full or regular photo
 
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { TextField } from './components/TextField';
 
 import PlacesAutocomplete, {
   geocodeByAddress,
 
   getLatLng,
 } from 'react-places-autocomplete';
+import { timezonedata } from './timezonedata';
 
+var moment = require('moment-timezone');
 
 const App: React.FC = () => {
 
@@ -23,6 +22,14 @@ const App: React.FC = () => {
   const [localLocalTime, setLocalLocalTime] = useState('')
   const [backgroundImage, setBackgroundImage] = useState('')
   const [photographer, setPhotographer] = useState({ username: "", profile_image: "" })
+  const [currentTZ, setCurrentTZ] = useState({
+    "value": "",
+    "abbr": "",
+    "offset": 0,
+    "isdst": false,
+    "text": "",
+    "utc": [""]
+  })
 
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
@@ -47,9 +54,9 @@ const App: React.FC = () => {
   const ACCESS_KEY = 'h7eF21T9CT7IP5joCADCvTOxpCL76CDsoDgtBwIkYKg'
 
   const currentLocationTimer = () => {
+    getCurrentTZData()
     let currentDate = new Date();
-
-
+    // console.log(currentDate)
 
     const hour = updateTime(currentDate.getHours())
     const minutes = updateTime(currentDate.getMinutes())
@@ -64,6 +71,18 @@ const App: React.FC = () => {
     setCurrentTimer(setTimeout(() => {
       currentLocationTimer()
     }, 1000))
+  }
+
+  const getCurrentTZData = () => {
+    const area = moment.tz.guess()
+    timezonedata.map((tz, index) => {
+      tz.utc.forEach((utc, index) => {
+        if (utc === area) {
+          // console.log("succesful", tz)
+          setCurrentTZ(tz)
+        }
+      })
+    })
   }
 
   useEffect(() => {
@@ -85,6 +104,8 @@ const App: React.FC = () => {
     }
   },
     [])
+
+
 
   const handleChange = (address: string) => {
     setAddress(address)
@@ -201,7 +222,7 @@ const App: React.FC = () => {
         <h2 className="timer">{hours}:{minutes}:{seconds}</h2>
       </div>}
       <div className="datetimecontainer">
-        <h3>current time</h3>
+        {currentTZ && <h3>current time:{currentTZ['text']}</h3>}
         <h2>{currentHours}:{currentMinutes}:{currentSeconds}</h2>
       </div>
       <div className="footer">
