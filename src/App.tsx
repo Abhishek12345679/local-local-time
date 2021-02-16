@@ -1,16 +1,18 @@
 //TODO: add geolocation 
-//TODO: option to download background
 //TODO: option to choose 24/12 hr format
+//TODO: store image in state between page links
 
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import { Link } from "react-router-dom";
+
 
 import PlacesAutocomplete, {
   geocodeByAddress,
 
   getLatLng,
 } from 'react-places-autocomplete';
-import { timezonedata } from './timezonedata';
+import { timezonedata } from './data/timezonedata';
 
 var moment = require('moment-timezone');
 
@@ -201,9 +203,9 @@ const App: React.FC = () => {
         <div className='title'>Local Local Time</div>
         <div className='title-short'>LLT</div>
         <ul>
-          <li> <a href="#"> About</a></li>
-          <li> <a href="#">Support</a></li>
-          <li> <a href="#"> Contact us</a></li>
+          <Link className="page" to="about">About</Link>
+          <Link className="page" to="support">Support</Link>
+          <Link className="page" to="contactus">Contact Us</Link>
         </ul>
       </nav>
       <PlacesAutocomplete
@@ -263,7 +265,7 @@ const App: React.FC = () => {
             style={{ textDecorationLine: 'none', color: '#ffffff' }}>
             @{photographer.username}
           </a>
-          <br />
+          {/* <br />
           <a
             download=""
             href={downloadLink}
@@ -271,7 +273,7 @@ const App: React.FC = () => {
             rel="nofollow"
             style={{ textDecorationLine: 'none', color: '#ffffff' }}>
             Download
-          </a>
+          </a> */}
         </div>
       </div>
     </div>

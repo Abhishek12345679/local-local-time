@@ -1,8 +1,6 @@
 .App {
-    justify-content: center;
-    text-align: center;
     background-color: #fff;
-    height: 100vh;
+    height: 100%;
     background-size: cover;
     position: fixed;
     background-position: center;
@@ -58,9 +56,10 @@
     list-style: none;
 }
 
-.navbar ul li a {
+.page {
     text-decoration: none;
-    color: white
+    color: white;
+    font-weight: bold;
 }
 
 .text {
@@ -135,6 +134,10 @@
     flex-direction: column;
     /* background-color: #ccc */
     text-align: left;
+}
+
+.footer div a {
+    font-weight: bold;
 }
 
 @media (max-width:500px) {
