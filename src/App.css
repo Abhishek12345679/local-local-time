@@ -46,8 +46,21 @@
 }
 
 .navbar ul li {
+    /* width: 100px; */
+    display: block;
     color: white;
     list-style: none;
+}
+
+.navbar ul li:hover {
+    background-color: #ccc;
+    color: white;
+    list-style: none;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: white
 }
 
 .text {
@@ -95,14 +108,13 @@
     width: 40%;
     height: 200px;
     background-color: #fff;
-    /* margin-top: 10px; */
-    /* colo */
+    padding: 0px 0px 10px 10px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     border: none;
     border-radius: 5px;
     text-align: left;
     font-size: 16px;
-    margin: 0px 0px 0px 30px;
+    margin: 5px 0px 0px 30px;
     color: #000;
 }
 
@@ -113,12 +125,16 @@
     position: fixed;
     bottom: 0px;
     text-align: center;
-    align-items: center;
     background-color: #242222;
     width: 100%;
-    color: #fff;
-    height: 50px;
-    justify-content: center;
+    height: 60px;
+}
+
+.footer div {
+    /* display: block; */
+    flex-direction: column;
+    /* background-color: #ccc */
+    text-align: left;
 }
 
 @media (max-width:500px) {

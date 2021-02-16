@@ -1,6 +1,4 @@
-//TODO: add geolocation
-//TODO: make site more responsive on mobile
-//TODO: Web UI 
+//TODO: add geolocation 
 //TODO: option to download background
 //TODO: option to choose 24/12 hr format
 
@@ -17,6 +15,10 @@ import { timezonedata } from './timezonedata';
 var moment = require('moment-timezone');
 
 const App: React.FC = () => {
+
+  //unsplash API
+  const [downloadLink, setDownloadLink] = useState('')
+
 
   const [address, setAddress] = useState('')
   const [destination, setDestination] = useState('')
@@ -86,15 +88,30 @@ const App: React.FC = () => {
     })
   }
 
-  useEffect(() => {
+  /**
+   * 
+   * @param uri: download_location
+   * 
+   * helps unsplash API to keep count of the downloads of the images of the author 
+   */
+  const sendDownloadRequest = async (uri: string) => {
+    await fetch(uri)
+  }
 
+
+
+  useEffect(() => {
+    /**
+     * getRandomBrackgroundImage fetches random images and its metadata from unsplash.com
+     */
     const getRandomBackgroundImage = async () => {
       const response = await fetch(`https://api.unsplash.com/photos/random?client_id=${ACCESS_KEY}&Accept-Version=v1&content_filter=low`)
       const resData = await response.json()
       console.log(resData)
       setBackgroundImage(resData.urls.regular)
       setPhotographer({ username: resData.user.username, profile_image: resData.user.profile_image.small })
-
+      sendDownloadRequest(`${resData.links.download_location}?client_id=${ACCESS_KEY}`)
+      setDownloadLink(`${resData.links.download}?force=true`)
     }
     getRandomBackgroundImage()
     currentLocationTimer()
@@ -184,9 +201,9 @@ const App: React.FC = () => {
         <div className='title'>Local Local Time</div>
         <div className='title-short'>LLT</div>
         <ul>
-          <li>About</li>
-          <li>Support</li>
-          <li>Contact us</li>
+          <li> <a href="#"> About</a></li>
+          <li> <a href="#">Support</a></li>
+          <li> <a href="#"> Contact us</a></li>
         </ul>
       </nav>
       <PlacesAutocomplete
@@ -238,13 +255,24 @@ const App: React.FC = () => {
       </div>
       <div className="footer">
         <img src={photographer.profile_image} style={{ borderRadius: 20, marginRight: 10 }} />
-        <a
-          href={`https://unsplash.com/@${photographer.username}`}
-          target="_blank"
-          rel="noreferrer"
-          style={{ textDecorationLine: 'none', color: '#ffffff' }}>
-          @{photographer.username}
-        </a>
+        <div>
+          <a
+            href={`https://unsplash.com/@${photographer.username}`}
+            target="_blank"
+            rel="noreferrer"
+            style={{ textDecorationLine: 'none', color: '#ffffff' }}>
+            @{photographer.username}
+          </a>
+          <br />
+          <a
+            download=""
+            href={downloadLink}
+            target="_blank"
+            rel="nofollow"
+            style={{ textDecorationLine: 'none', color: '#ffffff' }}>
+            Download
+          </a>
+        </div>
       </div>
     </div>
   );
