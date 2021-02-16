@@ -75,7 +75,7 @@ const App: React.FC = () => {
   }
 
   const getCurrentTZData = () => {
-    const area = moment.tz.guess()
+    const area = moment.tz.guess(true)
     timezonedata.map((tz, index) => {
       tz.utc.forEach((utc, index) => {
         if (utc === area) {
@@ -173,12 +173,22 @@ const App: React.FC = () => {
     )
   }
 
+
   return (
     <div className="App" style={{
       backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat',
 
     }}>
-      <h1 className="text">Local Local Time ⌚️</h1>
+      {/* <h1 className="text">Local Local Time ⌚️</h1> */}
+      <nav className='navbar'>
+        <div className='title'>Local Local Time</div>
+        <div className='title-short'>LLT</div>
+        <ul>
+          <li>About</li>
+          <li>Support</li>
+          <li>Contact us</li>
+        </ul>
+      </nav>
       <PlacesAutocomplete
         value={address}
         onChange={handleChange}
