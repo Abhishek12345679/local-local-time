@@ -229,7 +229,6 @@ const App: React.FC = () => {
         }
       </PlacesAutocomplete>
       {hours !== "0" && minutes !== "0" && seconds !== "0" && localLocalTime.length !== 0 && <div className='datetimecontainer'>
-        <h3>local time</h3>
         <p className="locallocaltimestring">local local time @ {destination}</p>
         <h2 className="timer">{hours}:{minutes}:{seconds}</h2>
       </div>}
