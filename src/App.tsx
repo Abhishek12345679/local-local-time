@@ -107,7 +107,7 @@ const App: React.FC = () => {
      * getRandomBrackgroundImage fetches random images and its metadata from unsplash.com
      */
     const getRandomBackgroundImage = async () => {
-      const response = await fetch(`https://api.unsplash.com/photos/random?client_id=${ACCESS_KEY}&Accept-Version=v1&content_filter=low`)
+      const response = await fetch(`https://api.unsplash.com/photos/random?client_id=${ACCESS_KEY}&Accept-Version=v1&content_filter=low&orientation=landscape`)
       const resData = await response.json()
       console.log(resData)
       setBackgroundImage(resData.urls.regular)
