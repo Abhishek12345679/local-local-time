@@ -13,6 +13,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 import { timezonedata } from './data/timezonedata';
+import { NavBar } from './components/NavBar';
 
 var moment = require('moment-timezone');
 
@@ -198,23 +199,14 @@ const App: React.FC = () => {
       backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat',
 
     }}>
-      {/* <h1 className="text">Local Local Time ⌚️</h1> */}
-      <nav className='navbar'>
-        <div className='title'>Local Local Time</div>
-        <div className='title-short'>LLT</div>
-        <ul>
-          <Link className="page" to="about">About</Link>
-          <Link className="page" to="support">Support</Link>
-          <Link className="page" to="contactus">Contact Us</Link>
-        </ul>
-      </nav>
+      <NavBar />
       <PlacesAutocomplete
         value={address}
         onChange={handleChange}
         onSelect={handleSelect}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) =>
-          <div className="container">
+          <div className="searchcontainer">
             <input
               {...getInputProps({
                 placeholder: 'Search Places ...',

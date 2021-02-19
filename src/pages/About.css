@@ -1,0 +1,9 @@
+/* html,
+body {
+    margin: 0px auto
+} */
+
+.container {
+    /* display: flex; */
+    background-color: #242222
+}
