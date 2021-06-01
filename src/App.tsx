@@ -240,11 +240,13 @@ const App: React.FC = () => {
         }
       </PlacesAutocomplete>
       {hours !== "0" && minutes !== "0" && seconds !== "0" && localLocalTime.length !== 0 && <div className='datetimecontainer'>
-        <p className="locallocaltimestring">local local time @ {destination}</p>
+        <h1>Local Local Time</h1>
+        <h2>{destination}</h2>
         <h2 className="timer">{hours}:{minutes}:{seconds}</h2>
       </div>}
       <div className="datetimecontainer">
-        {currentTZ && <h3>current time:{currentTZ['text']}</h3>}
+        {currentTZ && <h1>Time in your City:</h1>}
+        <h2>{currentTZ['text']}</h2>
         <h1>{currentHours}:{currentMinutes}:{currentSeconds}</h1>
       </div>
       <div className="footer">
@@ -254,7 +256,7 @@ const App: React.FC = () => {
             href={`https://unsplash.com/@${photographer.username}`}
             target="_blank"
             rel="noreferrer"
-            style={{ textDecorationLine: 'none', color: '#ffffff' }}>
+            style={{ textDecorationLine: 'underline', color: '#ffffff' }}>
             @{photographer.username}
           </a>
           {/* <br />

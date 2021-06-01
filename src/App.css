@@ -1,3 +1,9 @@
+html,
+body {
+    height: 100%;
+    background-color: #1f1d1d;
+}
+
 .App {
     background-color: #fff;
     height: 100%;
@@ -15,16 +21,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 15px;
 }
 
 .navbar .title {
     color: white;
-    font-size: 18px;
+    font-size: 19px;
     text-align: left;
     padding: 0.5rem;
     font-weight: bold;
     display: block;
-    width: 200px
+    width: 200px;
 }
 
 .navbar .title-short {
@@ -34,7 +41,7 @@
     padding: 0.5rem;
     font-weight: bold;
     display: none;
-    width: 200px
+    width: 200px;
 }
 
 .navbar ul {
@@ -107,14 +114,15 @@
 .datetimecontainer {
     width: 40%;
     height: 200px;
+    min-height: 250px;
     background-color: #fff;
-    padding: 0px 0px 10px 10px;
+    padding: 0px 10px 10px 10px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     border: none;
     border-radius: 5px;
     text-align: left;
     font-size: 16px;
-    margin: 5px 0px 0px 30px;
+    margin: 0px 0px 0px 30px;
     color: #000;
 }
 
@@ -141,7 +149,7 @@
     font-weight: bold;
 }
 
-@media (max-width:500px) {
+@media (max-width: 500px) {
     .location-search-input {
         width: 85%;
         margin: 10px 0px 0px 20px;

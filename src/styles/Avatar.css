@@ -1,0 +1,17 @@
+.overlay {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.me {
+    width: 400px;
+    height: 400px;
+}
+
+#img-mask {
+    -webkit-mask-image: radial-gradient( circle at 50% 60%, black 50%, rgba(0, 0, 0, 0.6) 50%);
+    mask-image: radial-gradient( circle at 50% 60%, black 50%, rgba(0, 0, 0, 0.6) 50%);
+}
